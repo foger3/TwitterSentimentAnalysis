@@ -1,7 +1,7 @@
 import setuptools 
 
 setuptools.setup(
-    name = "MyMap",
+    name = "twitter_nlp",
     version = "0.0.1",
     author = "luca",
     author_email= "luca.thoms@student.uva.nl",
