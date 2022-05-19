@@ -1,4 +1,7 @@
 import unittest
+import nltk
+from nltk.corpus import twitter_samples
+from nltk.tag import pos_tag_sents
 
 from twitter_nlp.core import nlp
 
@@ -7,10 +10,9 @@ class TestSum(unittest.TestCase):
 
     Basic unittest to determine if the outputs from the counting 
     function (simple_nlp) still match the original results.
-    
     """
     def test_compute(self):
-        """Tests whether output of class match the orignal ones."""
+        """Tests whether output of class matches the orignal ones."""
         obj = nlp()
         obj.simple_nlp()
         self.assertAlmostEqual(

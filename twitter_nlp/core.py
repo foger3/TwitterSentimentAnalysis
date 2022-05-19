@@ -16,6 +16,7 @@ Todo:
     * incorporate tweet generator by using twitter API package
     * incorpoarte full sentiment analysis
 """
+import nltk
 from nltk.corpus import twitter_samples
 from nltk.tag import pos_tag_sents
 
