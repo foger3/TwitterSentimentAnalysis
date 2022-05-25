@@ -9,7 +9,7 @@ class Cleaners:
     def __init__(self):
         pass
 
-    def remove_noise(tweet_tokens):
+    def remove_noise(self, tweet_tokens):
         tweet_tokens = [a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@']
         cleaned_tokens = []
         for token, tag in pos_tag(tweet_tokens):
@@ -33,9 +33,7 @@ class Cleaners:
                 cleaned_tokens.append(token.lower())
         return cleaned_tokens
 
-    def get_all_words(cleaned_tokens_list):
+    def get_all_words(self, cleaned_tokens_list):
         for tokens in cleaned_tokens_list:
             for token in tokens:
                 yield token
-
-
