@@ -11,13 +11,14 @@ Example:
 
 Functions:
     simple_nlp(): Counts nouns, adjectives, and verbs of tweets.
-
-Todo:
-    * incorporate tweet generator by using twitter API package
-    * incorpoarte full sentiment analysis
 """
 import src.Tweets
+import src.Visuals
 
 if __name__ == '__main__':
     tweet_sentiment = src.Tweets.Tweets()
     tweet_sentiment.init_input()
+    tweet_visuals = src.Visuals.Visuals()
+    tweet_visuals.sentiment_plots_pie
+    tweet_visuals.sentiment_plots_time
+    tweet_visuals.word_density

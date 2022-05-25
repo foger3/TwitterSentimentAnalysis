@@ -13,11 +13,11 @@ class Cleaners:
         tweet_tokens = [a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@']
         cleaned_tokens = []
         for token, tag in pos_tag(tweet_tokens):
-            token = re.sub(r'[0-9]', "", token) # remove numbers
-            token = re.sub('[^A-Za-z0-9]+', "", token) # remove special chr
-            token = re.sub(r'\b\w{1,2}\b', "", token) # remove words < 3chr     
-            token = re.sub(r'\bhtt\w+', "", token) # remove links
-            token = re.sub(r'\btco\w+', "", token) # remove links
+            token = re.sub(r'[0-9]', '', token) # remove numbers
+            token = re.sub('[^A-Za-z0-9]+', '', token) # remove special chr
+            token = re.sub(r'\b\w{1,2}\b', '', token) # remove words < 3chr     
+            token = re.sub(r'\bhtt\w+', '', token) # remove links
+            token = re.sub(r'\btco\w+', '', token) # remove links
 
             if tag.startswith('NN'):
                 pos = 'n'
