@@ -7,4 +7,5 @@ recent 100 tweets on the specifed account and provide a visualisation
 of the overall political sentiment, including more detailed output on
 sentiment frequency and word density measures.  
 """
-from twitter_nlp.core import nlp
+from src.main import *
+

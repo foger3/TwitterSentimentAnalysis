@@ -1,9 +1,8 @@
 import unittest
-import nltk
 from nltk.corpus import twitter_samples
 from nltk.tag import pos_tag_sents
 
-from twitter_nlp.core import nlp
+from src.placeholder import nlp
 
 class TestSum(unittest.TestCase):
     """Testing unit to determine if output remains the same.
