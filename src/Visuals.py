@@ -1,5 +1,6 @@
-import os, re, pickle
+import re, pickle
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from nltk import FreqDist
@@ -8,17 +9,26 @@ from wordcloud import WordCloud
 
 from src import Cleaners
 
-class Visuals:
+class Visuals(Cleaners.Classifier):
 
     def __init__(self):
-        this_dir, this_filename = os.path.split(__file__) 
-        data_path = os.path.join(this_dir, 'data/political_classifier.pickle')
-        model_hold = open(data_path, 'rb')
+        model_hold = open(Visuals.data_path, 'rb')
         self.Classifier = pickle.load(model_hold)
         model_hold.close()
         self.clean = Cleaners.Cleaners()
-    
+
+    def word_density(self, tweet_cleaned):
+        plt.figure(1)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        freq_words = FreqDist(self.clean.get_all_words(tweet_cleaned))
+        filter_words = dict([(m, n) for m, n in freq_words.items() if len(m) > 3])
+        cloud = WordCloud().generate_from_frequencies(filter_words)
+        ax.imshow(cloud, interpolation = 'bilinear')
+        ax.axis("off")
+        #plt.show()    
+
     def sentiment_plots_pie(self, pie_chart_data):
+        plt.figure(2)
         fig, ax = plt.subplots(figsize = (8, 6))
         fig.patch.set_facecolor('white')
         patches, texts, pcts = ax.pie(
@@ -28,13 +38,15 @@ class Visuals:
             textprops={'size': 'x-large'}, explode = [0.2, 0])
         plt.setp(pcts, color = 'white', fontweight = 'bold')
         ax.set_title('Pie Chart of Sentiment Ratio', fontsize = 18)
-        plt.show()
+        #plt.show()
         
     def sentiment_plots_time(self, time_series_data):
+        plt.figure(3)
         xtick_locator = mdates.AutoDateLocator(interval_multiples = False)
         xtick_formatter = mdates.AutoDateFormatter(xtick_locator)
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.plot(time_series_data.dates, time_series_data.sentiments_prob, color = "grey")
+        sns.lineplot( x = 'dates', y = '14day_run_avg', data = time_series_data, color = "darkorange", linewidth = 2)
         ax.set_xlabel('Date (in months)', fontsize = 14)
         ax.xaxis.set_major_locator(xtick_locator)
         ax.xaxis.set_major_formatter(xtick_formatter)
@@ -44,16 +56,7 @@ class Visuals:
         fig.autofmt_xdate(rotation = 20, ha = 'center')
         plt.show()
 
-    def word_density(self, tweet_cleaned):
-        plt.subplots(figsize=(10, 6))
-        freq_words = FreqDist(self.clean.get_all_words(tweet_cleaned))
-        filter_words = dict([(m, n) for m, n in freq_words.items() if len(m) > 3])
-        cloud = WordCloud().generate_from_frequencies(filter_words)
-        plt.imshow(cloud, interpolation = 'bilinear')
-        plt.axis("off")
-        plt.show()
-
-    def single_tweet(self, tweet_text, num):  
+    def single_tweet(self, tweet_text, num):
         single_tweet_token = self.clean.remove_noise(word_tokenize(tweet_text[num - 1]))
         single_tweet = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
                             '(?:%[0-9a-fA-F][0-9a-fA-F]))+','', tweet_text[num - 1])
