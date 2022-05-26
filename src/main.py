@@ -13,7 +13,6 @@ Functions:
     simple_nlp(): Counts nouns, adjectives, and verbs of tweets.
 """
 import src.Tweets
-import src.Visuals
 
 if __name__ == '__main__':
     tweet_sentiment = src.Tweets.Tweets()
