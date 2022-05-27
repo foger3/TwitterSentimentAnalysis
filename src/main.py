@@ -7,10 +7,10 @@ The model has been trained with tweets categorised as conservative vs.
 liberal. Tweets are accessed via the twitter API.
 
 Example:
-    $ python core.py
+    $ python -m src.main
 
 Functions:
-    simple_nlp(): Counts nouns, adjectives, and verbs of tweets.
+    XXXX
 """
 import src.Tweets
 
