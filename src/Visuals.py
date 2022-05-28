@@ -69,10 +69,10 @@ class Visuals(Cleaners.Classifier):
         xtick_formatter = mdates.AutoDateFormatter(
             xtick_locator
             )        
-        ax.set_xlabel('Date (in months)', fontsize = 14)
+        ax.set_xlabel('Dates', fontsize = 14)
         ax.xaxis.set_major_locator(xtick_locator)
         ax.xaxis.set_major_formatter(xtick_formatter)
-        ax.set_ylabel("")
+        ax.set_ylabel("Sentiment", fontsize = 14)
         ax.set_yticks(np.arange(-0.5, 0.6, 0.25))
         ax.set_yticklabels(
             labels = ['', 'Conservative', '', 'Liberal', ''], 
@@ -80,7 +80,7 @@ class Visuals(Cleaners.Classifier):
             rotation = 90, 
             va = 'center'
             )
-        ax.set_ylim(-0.6, 0.6)
+        ax.set_ylim(-0.65, 0.65)
         ax.set_title('Tweet Sentiment Over Time', fontsize = 18)
         fig.autofmt_xdate(rotation = 20, ha = 'center')
         plt.show()

@@ -49,9 +49,8 @@ class Tweets():
             randrange(0, len(tweet_text))
             )
         self.visual.word_density(tweet_df.tweets.tolist())
-        self.visual.sentiment_plots_time(tweet_sentiments_df)
         self.visual.sentiment_plots_pie( 
             np.array([tweet_sentiments_df.sentiments.tolist().count('Liberal'), 
                     tweet_sentiments_df.sentiments.tolist().count('Conservative')])
             )
-
+        self.visual.sentiment_plots_time(tweet_sentiments_df)

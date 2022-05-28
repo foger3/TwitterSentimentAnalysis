@@ -54,7 +54,7 @@ class Cleaners(Classifier):
         for token, tag in pos_tag(tweet_tokens):
             token = re.sub(r'[0-9]', '', token) # remove numbers
             token = re.sub('[^A-Za-z0-9]+', '', token) # remove special
-            token = re.sub(r'\b\w{1,2}\b', '', token) # remove words<3c     
+            token = re.sub(r'\b\w{1,2}\b', '', token) # remove shorts     
             token = re.sub(r'\bhtt\w+', '', token) # remove links
             token = re.sub(r'\btco\w+', '', token) # remove links
 
@@ -68,7 +68,7 @@ class Cleaners(Classifier):
             lemmatizer = WordNetLemmatizer()
             token = lemmatizer.lemmatize(token, pos)
 
-            if len(token) > 0 and token.lower() not in stopwords.words('english'):
+            if len(token) > 0 and token.lower() not in (stopwords.words('english') + ['want', 'would', 'could']):
                 cleaned_tokens.append(token.lower())
         return cleaned_tokens
 
