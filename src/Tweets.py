@@ -27,6 +27,8 @@ class Tweets():
                 )
             tweet_text = [tweet.text for tweet in tweets.data]
             tweet_date = [tweet.created_at for tweet in tweets.data]
+        except tw.errors.NotFound: # no username provided
+            print('Please provide a Username!')
         except tw.errors.Unauthorized: # provided invalid bearer token
             print('Please provide a valid bearer token!')         
         except tw.errors.BadRequest: # provided too long username
