@@ -1,5 +1,6 @@
 import numpy as np
 import tweepy as tw
+import matplotlib.pyplot as plt
 from random import randrange
 
 from src import Cleaners, Visuals
@@ -45,7 +46,7 @@ class Tweets():
         tweet_sentiments_df = self.clean.clean_sentiment(tweet_df)
         self.get_plots(tweet_text, tweet_df, tweet_sentiments_df)
         
-    def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df):
+    def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df): # Do I really need this function?
         self.visual.single_tweet(
             tweet_text, 
             randrange(0, len(tweet_text))
@@ -56,3 +57,4 @@ class Tweets():
                     tweet_sentiments_df.sentiments.tolist().count('Conservative')])
             )
         self.visual.sentiment_plots_time(tweet_sentiments_df)
+        plt.show()

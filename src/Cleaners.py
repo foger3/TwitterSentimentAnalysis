@@ -1,4 +1,6 @@
-import re, pickle, os
+import re
+import os
+import pickle
 
 import pandas as pd
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -19,11 +21,13 @@ class Cleaners(Classifier):
 
     def clean_tweets(self, tweet_text, tweet_date):
         tweet_cleaned = []
-        for tweet in enumerate(tweet_text):
-            tweet_cleaned.append(self.remove_noise(word_tokenize(tweet_text[tweet[0]])))
+        for tweet in range(len(tweet_text)):
+            tweet_cleaned.append(self.remove_noise(word_tokenize(tweet_text[tweet])))
 
-        tweet_df = pd.DataFrame({'tweets': tweet_cleaned, 
-                                'dates': tweet_date})
+        tweet_df = pd.DataFrame(
+            {'tweets': tweet_cleaned, 
+            'dates': tweet_date}
+            )
         tweet_df = tweet_df[tweet_df.astype(str)['tweets'] != '[]']
         return tweet_df
     
@@ -44,7 +48,8 @@ class Cleaners(Classifier):
         tweet_sentiments_df = pd.DataFrame(
             {'sentiments': tweet_sentiments, 
             'sentiments_prob': tweet_prob_sentiments, 
-            'dates': tweet_df.dates})
+            'dates': tweet_df.dates}
+            )
         tweet_sentiments_df.loc[tweet_sentiments_df['sentiments'].str.contains('Conservative'), 'sentiments_prob'] *= -1
         tweet_sentiments_df = tweet_sentiments_df.sort_values('dates')
         tweet_sentiments_df['14_run_avg'] = tweet_sentiments_df.sentiments_prob.rolling(14).mean()

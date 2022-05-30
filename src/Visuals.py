@@ -1,4 +1,5 @@
-import re, pickle
+import re
+import pickle
 
 import numpy as np
 import seaborn as sns
@@ -18,16 +19,15 @@ class Visuals(Cleaners.Classifier):
         model_hold.close()
         self.clean = Cleaners.Cleaners()
 
-    def word_density(self, tweet_cleaned):
+    def word_density(self, tweet_cleaned, random = None):
         fig, ax = plt.subplots(figsize=(10, 6))
         freq_words = FreqDist(self.clean.get_all_words(tweet_cleaned))
         filter_words = dict(
             [(m, n) for m, n in freq_words.items() if len(m) > 3]
             )
-        cloud = WordCloud().generate_from_frequencies(filter_words)
+        cloud = WordCloud(random_state = random).generate_from_frequencies(filter_words)
         ax.imshow(cloud, interpolation = 'bilinear')
         ax.axis("off")
-        plt.show()    
 
     def sentiment_plots_pie(self, pie_chart_data):
         fig, ax = plt.subplots(figsize = (8, 6))
@@ -47,7 +47,6 @@ class Visuals(Cleaners.Classifier):
             )
         ax.set_title('Pie Chart of Sentiment Ratio', fontsize = 18)
         plt.setp(pcts, color = 'white', fontweight = 'bold')
-        plt.show()
         
     def sentiment_plots_time(self, time_series_data):
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -83,8 +82,7 @@ class Visuals(Cleaners.Classifier):
             )
         ax.set_ylim(-0.65, 0.65)
         ax.set_title('Tweet Sentiment Over Time', fontsize = 18)
-        fig.autofmt_xdate(rotation = 20, ha = 'center')
-        plt.show()
+        fig.autofmt_xdate(rotation = 20, ha = 'center')  
 
     def single_tweet(self, tweet_text, num):
         single_tweet_token = self.clean.remove_noise(
@@ -94,5 +92,5 @@ class Visuals(Cleaners.Classifier):
             'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
             '(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', tweet_text[num - 1]
             )
-        print(f'The following Tweet: \n\n"{single_tweet.strip()}"')
-        print(f'\nHas been classified as: "{self.classifier.classify(dict([token, True] for token in single_tweet_token))}"')
+        print(f'The following Tweet: \n\n"{single_tweet.strip()}"',
+            f'\n\nHas been classified as: "{self.classifier.classify(dict([token, True] for token in single_tweet_token))}"')
