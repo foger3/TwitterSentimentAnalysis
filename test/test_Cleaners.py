@@ -1,54 +1,62 @@
 import unittest
 
-import pandas as pd
-
 from src.Cleaners import Cleaners
 from test.test_Data import TestData
 
 class TestCleaners(unittest.TestCase, TestData):
+    
     def test_clean_tweets(self):
         obj = Cleaners()
         test_obj = obj.clean_tweets(TestCleaners.tweet_text, 
                                     TestCleaners.tweet_date)
-        self.assertEqual(True, test_obj.equals( 
-            pd.DataFrame({'tweets': [['test', 'function'], ['test']],
-                        'dates': [TestCleaners.tweet_date[0], 
-                                TestCleaners.tweet_date[1]]})
+        self.assertEqual(True, test_obj.equals(
+                TestCleaners.tweet_df
+                )
             )
-        )
+
+    def test_clean_tweets_not_none(self):
+        obj = Cleaners()
+        self.assertIsNotNone(
+            obj.clean_tweets(TestCleaners.tweet_text, 
+                            TestCleaners.tweet_date)
+            )
 
     def test_clean_sentiment(self):
         obj = Cleaners()
-        test_obj = obj.clean_tweets(TestCleaners.tweet_text, 
-                                    TestCleaners.tweet_date)
-        test_obj = obj.clean_sentiment(test_obj)  
+        test_obj = obj.clean_sentiment(TestCleaners.tweet_df)  
         self.assertEqual(True, test_obj.equals( 
-            pd.DataFrame({'sentiments': ['Conservative', 
-                                        'Conservative'],
-                        'sentiments_prob': [-0.34753563238125573,
-                                            -0.04166585465758832],
-                        'dates': [TestCleaners.tweet_date[0], 
-                                TestCleaners.tweet_date[1]],
-                        '14_run_avg': [float('nan'), float('nan')]
-                        }).sort_values('dates')
+                TestCleaners.tweet_sentiments_df
+                )
             )
-        )
+    
+    def test_clean_sentiment_not_none(self):
+        obj = Cleaners() 
+        self.assertIsNotNone(
+            obj.clean_sentiment(TestCleaners.tweet_df) 
+            )
 
     def test_remove_noise(self):
         obj = Cleaners()
         self.assertEqual(
             obj.remove_noise(TestCleaners.tweet_token[0]),
             ['test', 'function']
-        )
+            )
+
+    def test_remove_noise_not_none(self):
+        obj = Cleaners()
+        self.assertIsNotNone(
+            obj.remove_noise(TestCleaners.tweet_token[0])
+            )
     
     def test_get_all_words(self):
         obj = Cleaners()
         test_obj = obj.get_all_words(TestCleaners.tweet_token)        
         self.assertEqual(
-            (next(test_obj), next(test_obj), 
-            next(test_obj), next(test_obj)),
-            ('Test', 'of', 'this', 'function')
-        )
+            (next(test_obj), next(test_obj), next(test_obj), 
+            next(test_obj), next(test_obj), next(test_obj), 
+            next(test_obj)),
+            ('Test', 'of', 'this', 'function', 'Other', 'test', 'now')
+            )
 
 if __name__ == '__main__':
     unittest.main()
