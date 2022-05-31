@@ -16,7 +16,7 @@ process.
 The package includes modules executing the described functionality and
 scripts detailing how the political classifier was build 
 (.../src/model). Users of this package are invited to do their own 
-sentiment analysis using the provided scripts or replicate the procided
+sentiment analysis using the provided scripts or replicate the provided
 classifier.
 
 ## Running the package
