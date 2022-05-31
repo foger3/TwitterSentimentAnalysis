@@ -31,7 +31,9 @@ class Cleaners(Classifier):
         tweet_df = tweet_df[tweet_df.astype(str)['tweets'] != '[]']
         return tweet_df
     
-    def clean_sentiment(self, tweet_df):        
+    def clean_sentiment(self, tweet_text, tweet_date):        
+        tweet_df = self.clean_tweets(tweet_text, tweet_date)
+
         tweet_sentiments = []
         for tweet in tweet_df.tweets.tolist():
             tweet_sentiments.append(self.classifier.classify(dict([token, True] for token in tweet))) 

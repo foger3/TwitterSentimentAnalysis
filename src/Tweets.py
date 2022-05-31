@@ -16,7 +16,7 @@ class Tweets():
         username = input('Username: \n')
         self.get_tweets(username, bearer_token)
     
-    def get_tweets(self, username, bearer_token):
+    def get_tweets(self, username, bearer_token, test = None):
         try:
             client = tw.Client(bearer_token = bearer_token) 
             user = client.get_user(username = username)
@@ -31,22 +31,24 @@ class Tweets():
         except tw.errors.NotFound: # no username provided
             print('Please provide a Username!')
         except tw.errors.Unauthorized: # provided invalid bearer token
-            print('Please provide a valid bearer token!')         
+            print('Please provide a valid bearer token!')
         except tw.errors.BadRequest: # provided too long username
-            print('Username too long or you used a special character!')              
+            print('Username too long or you used a special character!')             
         except AttributeError: # when user.data.id = 0
-            print('Username does not exist!') 
+            print('Username does not exist!')
         except TypeError: # when tweets.data empty
-            print('User has no tweets or replies!') 
+            print('User has no tweets or replies!')
         else:
-            self.get_data(tweet_text, tweet_date)
-
-    def get_data(self, tweet_text, tweet_date):
-        tweet_df = self.clean.clean_tweets(tweet_text, tweet_date)
-        tweet_sentiments_df = self.clean.clean_sentiment(tweet_df)
-        self.get_plots(tweet_text, tweet_df, tweet_sentiments_df)
+            if test == None:
+                self.get_plots(
+                    tweet_text, 
+                    self.clean.clean_tweets(tweet_text, tweet_date),
+                    self.clean.clean_sentiment(tweet_text, tweet_date)
+                    )
+            else:
+                return(tweet_text, tweet_date)
         
-    def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df): # Do I really need this function?
+    def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df):
         self.visual.single_tweet(
             tweet_text, 
             randrange(0, len(tweet_text))

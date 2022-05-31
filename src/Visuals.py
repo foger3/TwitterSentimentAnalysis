@@ -27,7 +27,7 @@ class Visuals(Cleaners.Classifier):
             )
         cloud = WordCloud(random_state = random).generate_from_frequencies(filter_words)
         ax.imshow(cloud, interpolation = 'bilinear')
-        ax.axis("off")
+        ax.axis('off')
 
     def sentiment_plots_pie(self, pie_chart_data):
         fig, ax = plt.subplots(figsize = (8, 6))
@@ -53,15 +53,15 @@ class Visuals(Cleaners.Classifier):
         ax.plot(
             time_series_data.dates, 
             time_series_data.sentiments_prob, 
-            color = "grey"
+            color = 'grey'
             )
         sns.lineplot(
             x = 'dates', 
             y = '14_run_avg', 
             data = time_series_data, 
-            color = "darkorange", 
+            color = 'darkorange', 
             linewidth = 2, 
-            label = "14 Tweet Running Average"
+            label = '14 Tweet Running Average'
             )
         xtick_locator = mdates.AutoDateLocator(
             interval_multiples = False
@@ -72,7 +72,7 @@ class Visuals(Cleaners.Classifier):
         ax.set_xlabel('Dates', fontsize = 14)
         ax.xaxis.set_major_locator(xtick_locator)
         ax.xaxis.set_major_formatter(xtick_formatter)
-        ax.set_ylabel("Sentiment", fontsize = 14)
+        ax.set_ylabel('Sentiment', fontsize = 14)
         ax.set_yticks(np.arange(-0.5, 0.6, 0.25))
         ax.set_yticklabels(
             labels = ['', 'Conservative', '', 'Liberal', ''], 
