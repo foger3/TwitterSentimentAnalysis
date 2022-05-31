@@ -49,14 +49,13 @@ class Tweets():
                 return(tweet_text, tweet_date)
         
     def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df):
-        self.visual.single_tweet(
-            tweet_text, 
-            randrange(0, len(tweet_text))
-            )
+        self.visual.single_tweet(tweet_text, randrange(0, len(tweet_text)))
         self.visual.word_density(tweet_df.tweets.tolist())
         self.visual.sentiment_plots_pie( 
-            np.array([tweet_sentiments_df.sentiments.tolist().count('Liberal'), 
-                    tweet_sentiments_df.sentiments.tolist().count('Conservative')])
+            np.array(
+                [tweet_sentiments_df.sentiments.tolist().count('Liberal'), 
+                tweet_sentiments_df.sentiments.tolist().count('Conservative')]
+                )
             )
         self.visual.sentiment_plots_time(tweet_sentiments_df)
         plt.show()

@@ -24,11 +24,17 @@ os.chdir('c:\\Users\\...\\..\\...\\Data Files')
 
 
 ### Required functions to get data in shape for model build ###
-# Both functions appear within the module 'Cleaners' with proper
-# documentation and argument/output explanations:
+# remove_noise: Removes noise within tweets, inlcuding usernames,
+# special characters, links, specific words (e.g., 'tune').
+# Removes noise for each token after tagging them with their
+# context (e.g., 'Noun' = 'NN') with pos_tag and afterwards
+# normalize words to their stem version ('running' = 'run') with
+# WordNetLemmatizer().lemmatize. Lastly, stopwords are removed.
 def remove_noise(tweet_tokens):
 
-    tweet_tokens = [a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@']
+    tweet_tokens = [
+        a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@'
+        ]
     cleaned_tokens = []
     for token, tag in pos_tag(tweet_tokens):
         token = re.sub(r'[0-9]', "", token) # remove numbers
@@ -52,6 +58,8 @@ def remove_noise(tweet_tokens):
             cleaned_tokens.append(token.lower())
     return cleaned_tokens
 
+# get_tweets_for_model: converts tweets/tokens from cleaned token list 
+# to dictionaries with tokens as keys and True as the value. 
 def get_tweets_for_model(cleaned_tokens_list):
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)
@@ -92,7 +100,7 @@ tweets_con_list = df_con.tweet_text.to_list()
 
  
 ### Building the model/classifier ###
-# Tokenize tweets from both lists:
+# Tokenize tweets from both lists and append to new list:
 conservative_tweet_token = []
 for tweet in range(len(tweets_con_list)):
     conservative_tweet_token.append(word_tokenize(tweets_con_list[tweet]))
@@ -101,27 +109,29 @@ liberal_tweet_token = []
 for tweet in range(len(tweets_lib_list)):
     liberal_tweet_token.append(word_tokenize(tweets_lib_list[tweet]))
 
-# Removing noise from tokenized tweets and remove now empty tweets:
+# Removing noise from tokenized tweets and remove empty tweets:
 conservative_cleaned = []
 for tweet in conservative_tweet_token:
     conservative_cleaned.append(remove_noise(tweet))
-conservative_cleaned_token = [x for x in conservative_cleaned if x != []]
+conservative_cleaned_tok = [x for x in conservative_cleaned if x != []]
 
 liberal_cleaned = []
 for tweet in liberal_tweet_token:
     liberal_cleaned.append(remove_noise(tweet))
-liberal_cleaned_token = [x for x in liberal_cleaned if x != []]
+liberal_cleaned_tok = [x for x in liberal_cleaned if x != []]
 
 # Convert tweet lists into python dictionary (required):
-conservative_tokens_for_model = get_tweets_for_model(conservative_cleaned_token)
-liberal_tokens_for_model = get_tweets_for_model(liberal_cleaned_token)
+conservative_tokens_model = get_tweets_for_model(conservative_cleaned_tok)
+liberal_tokens_model = get_tweets_for_model(liberal_cleaned_tok)
 
 # Create data sets for both sentiments:
-conservative_dataset = [(tweet_dict, "Conservative")
-                     for tweet_dict in conservative_tokens_for_model]
+conservative_dataset = [
+    (tweet_dict, "Conservative") for tweet_dict in conservative_tokens_model
+    ]
 
-liberal_dataset = [(tweet_dict, "Liberal")
-                for tweet_dict in liberal_tokens_for_model]
+liberal_dataset = [
+    (tweet_dict, "Liberal") for tweet_dict in liberal_tokens_model
+    ]
 
 # Merge data sets and randomly shuffle them:
 dataset = conservative_dataset + liberal_dataset

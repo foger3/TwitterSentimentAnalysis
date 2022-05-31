@@ -22,11 +22,13 @@ class Cleaners(Classifier):
     def clean_tweets(self, tweet_text, tweet_date):
         tweet_cleaned = []
         for tweet in range(len(tweet_text)):
-            tweet_cleaned.append(self.remove_noise(word_tokenize(tweet_text[tweet])))
+            tweet_cleaned.append(
+                self.remove_noise(word_tokenize(tweet_text[tweet]))
+                )
 
         tweet_df = pd.DataFrame(
             {'tweets': tweet_cleaned, 
-            'dates': tweet_date}
+             'dates': tweet_date}
             )
         tweet_df = tweet_df[tweet_df.astype(str)['tweets'] != '[]']
         return tweet_df
@@ -36,12 +38,17 @@ class Cleaners(Classifier):
 
         tweet_sentiments = []
         for tweet in tweet_df.tweets.tolist():
-            tweet_sentiments.append(self.classifier.classify(dict([token, True] for token in tweet))) 
-        tweet_sentiments = tweet_sentiments
+            tweet_sentiments.append(
+                self.classifier.classify(
+                    dict([token, True] for token in tweet)
+                    )
+                ) 
         
         tweet_prob_sentiments = []
         for tweet in tweet_df.tweets.tolist():
-            dist = self.classifier.prob_classify(dict([token, True] for token in tweet))
+            dist = self.classifier.prob_classify(
+                dict([token, True] for token in tweet)
+                )
             for label in dist.samples():
                 tweet_prob_sentiments.append(dist.prob(label))  
         tweet_prob_sentiments = [x for x in tweet_prob_sentiments if x > 0.5]
@@ -49,8 +56,8 @@ class Cleaners(Classifier):
 
         tweet_sentiments_df = pd.DataFrame(
             {'sentiments': tweet_sentiments, 
-            'sentiments_prob': tweet_prob_sentiments, 
-            'dates': tweet_df.dates}
+             'sentiments_prob': tweet_prob_sentiments, 
+             'dates': tweet_df.dates}
             )
         tweet_sentiments_df.loc[tweet_sentiments_df['sentiments'].str.contains('Conservative'), 'sentiments_prob'] *= -1
         tweet_sentiments_df = tweet_sentiments_df.sort_values('dates')
@@ -58,7 +65,10 @@ class Cleaners(Classifier):
         return tweet_sentiments_df
 
     def remove_noise(self, tweet_tokens):
-        tweet_tokens = [a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@']
+        # CREDIT TO AUTHOR 
+        tweet_tokens = [
+            a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@'
+            ]
         cleaned_tokens = []
         for token, tag in pos_tag(tweet_tokens):
             token = re.sub(r'[0-9]', '', token) # remove numbers
@@ -82,6 +92,7 @@ class Cleaners(Classifier):
         return cleaned_tokens
 
     def get_all_words(self, cleaned_tokens_list):
+        # CREDIT TO AUTHOR 
         for tweet in cleaned_tokens_list:
             for token in tweet:
                 yield token

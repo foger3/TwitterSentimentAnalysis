@@ -7,34 +7,42 @@ class TestCleaners(unittest.TestCase, TestData):
     
     def test_clean_tweets(self):
         obj = Cleaners()
-        test_obj = obj.clean_tweets(TestCleaners.tweet_text, 
-                                    TestCleaners.tweet_date)
-        self.assertEqual(True, test_obj.equals(
-                TestCleaners.tweet_df
-                )
+        test_obj = obj.clean_tweets(
+            TestCleaners.tweet_text, 
+            TestCleaners.tweet_date
+            )
+        self.assertEqual(
+            True, 
+            test_obj.equals(TestCleaners.tweet_df)
             )
 
     def test_clean_tweets_not_none(self):
         obj = Cleaners()
         self.assertIsNotNone(
-            obj.clean_tweets(TestCleaners.tweet_text, 
-                            TestCleaners.tweet_date)
+            obj.clean_tweets(
+                TestCleaners.tweet_text, 
+                TestCleaners.tweet_date
+                )
             )
 
     def test_clean_sentiment(self):
         obj = Cleaners()
-        test_obj = obj.clean_sentiment(TestCleaners.tweet_text,
-                                    TestCleaners.tweet_date)  
-        self.assertEqual(True, test_obj.equals( 
-                TestCleaners.tweet_sentiments_df
-                )
+        test_obj = obj.clean_sentiment(
+            TestCleaners.tweet_text,
+            TestCleaners.tweet_date
+            )  
+        self.assertEqual(
+            True, 
+            test_obj.equals(TestCleaners.tweet_sentiments_df)
             )
     
     def test_clean_sentiment_not_none(self):
         obj = Cleaners() 
         self.assertIsNotNone(
-            obj.clean_sentiment(TestCleaners.tweet_text, 
-                                TestCleaners.tweet_date) 
+            obj.clean_sentiment(
+                TestCleaners.tweet_text, 
+                TestCleaners.tweet_date
+                ) 
             )
 
     def test_remove_noise(self):

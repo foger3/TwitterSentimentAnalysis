@@ -7,4 +7,4 @@ recent 100 tweets on the specifed account and provide a visualisation
 of the overall political sentiment, including more detailed output on
 sentiment frequency and word density measures.  
 """
-import src.Tweets
+from src import Tweets

@@ -11,7 +11,8 @@ class TestTweets(unittest.TestCase, TestData):
             obj.get_tweets(
                 'luca_tom_third', 
                 'Bearer Token', 
-                test = "test"),
+                test = "test"
+                ),
             (TestTweets.tweet_text, TestTweets.tweet_date)
             )
 
