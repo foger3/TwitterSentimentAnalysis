@@ -1,3 +1,20 @@
+"""This module contains the class that executes the visualized analysis.
+
+All functions and information required for the sentiment analysis are
+combined in the class of this module. The module provides a visualized 
+overview of the political sentiments of the specfied user by accessing 
+the functionalities of the other modules/classes. Output includes a pie
+chart, time series chart, wordcloud, and a single classified tweet. 
+Input for the package is handled here.
+
+    Classes:
+        Tweets: Class to handle input, access data and execute 
+            visualisation.
+    
+    Typical usage example:
+        obj = Tweets()
+        obj.get_tweets(username, bearer_tokens)
+"""
 import numpy as np
 import tweepy as tw
 import matplotlib.pyplot as plt
@@ -6,17 +23,52 @@ from random import randrange
 from src import Cleaners, Visuals
 
 class Tweets():
+    """Handles input, access data and execute visualisation.
+
+    Class that contains functions to handle user inputs, access 
+    twitter's API, get the tweet data of a specified twitter user, and 
+    call the according visualisation functions.
     
+    Attributes:
+        clean (class): Class to refer to functions that clean data.
+        visual (class): Class to refer to visualisation functions.
+
+    Methods:
+        get_tweets: Gets the tweet data of a specified user.
+        get_plots: Calls the visualisation functions and plots them.
+    """
     def __init__(self):
+        """Constructor for Tweets class."""
         self.clean = Cleaners.Cleaners()
         self.visual = Visuals.Visuals()
 
     def init_input(self):
+        """Initialise the input for the program."""
         bearer_token = input('Bearer Token: \n')
         username = input('Username: \n')
         self.get_tweets(username, bearer_token)
     
-    def get_tweets(self, username, bearer_token, test = None):
+    def get_tweets(self, username, bearer_token, test = False):
+        """Gets the tweet data of the specified user.
+
+        Function accesses the twitter API and retrieves the tweets of 
+        a certain user. The data is stored into two list, containing
+        information on the tweets content and their dates. Includes
+        error handling in case of misspecifications or errors.
+
+        Args:
+            username (str): String indicating the username of the 
+                twitter user.
+            bearer_token (str): String indicating the bearer token.
+            test (bool, optional): Used for testing get_tweets. 
+                Defaults to False.
+
+        Returns (optional):
+            tweet_text (list): List containing each tweets text (str), 
+                only returned for test function.
+            tweet_date (list): List containing each tweets date, only
+                returned for test function.
+        """
         try:
             client = tw.Client(bearer_token = bearer_token) 
             user = client.get_user(username = username)
@@ -28,18 +80,18 @@ class Tweets():
                 )
             tweet_text = [tweet.text for tweet in tweets.data]
             tweet_date = [tweet.created_at for tweet in tweets.data]
-        except tw.errors.NotFound: # no username provided
+        except tw.errors.NotFound: # No username provided.
             print('Please provide a Username!')
-        except tw.errors.Unauthorized: # provided invalid bearer token
+        except tw.errors.Unauthorized: # Provided invalid bearer token.
             print('Please provide a valid bearer token!')
-        except tw.errors.BadRequest: # provided too long username
+        except tw.errors.BadRequest: # Username too long or invalid.
             print('Username too long or you used a special character!')             
-        except AttributeError: # when user.data.id = 0
+        except AttributeError: # When user.data.id = 0.
             print('Username does not exist!')
-        except TypeError: # when tweets.data empty
+        except TypeError: # When tweets.data empty.
             print('User has no tweets or replies!')
         else:
-            if test == None:
+            if test != True:
                 self.get_plots(
                     tweet_text, 
                     self.clean.clean_tweets(tweet_text, tweet_date),
@@ -49,6 +101,22 @@ class Tweets():
                 return(tweet_text, tweet_date)
         
     def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df):
+        """Calls the visualisation functions and plots them.
+
+        Function calls visuallisation functions from the Visuals class
+        and provides the cleaned data to those. A plotting function is 
+        called to display the create plots.
+
+        Args:
+            tweet_text (list): List containing each tweets text (str).
+            tweet_df (DataFrame): Dataframe containing columns for 
+                tokenized cleaned tweets (list(str)) and tweet dates, 
+                respectively.
+            tweet_sentiments_df (DataFrame): Dataframe containing 
+                columns for tweet sentiments (str), sentiment 
+                probabilities (float), tweet dates, and running 
+                averages (float), respectively.
+        """
         self.visual.single_tweet(tweet_text, randrange(0, len(tweet_text)))
         self.visual.word_density(tweet_df.tweets.tolist())
         self.visual.sentiment_plots_pie( 

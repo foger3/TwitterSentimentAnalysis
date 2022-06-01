@@ -4,7 +4,7 @@ from src.Cleaners import Cleaners
 from test.test_Data import TestData
 
 class TestCleaners(unittest.TestCase, TestData):
-    """Class that contains unit tests for the Cleaners class.
+    """Contains the unit tests for the Cleaners class.
 
     Functions of the Cleaners class are tested by comparing the output
     of the function to an expected test output. Certain functions are

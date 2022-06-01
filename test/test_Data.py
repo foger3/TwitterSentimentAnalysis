@@ -2,9 +2,9 @@ import pandas as pd
 from datetime import datetime
 
 class TestData:
-    """Class to hold test data for testing in other test files.
+    """Holds the test data for testing in other test files.
     
-    The data consists of three lists, one for tweet texts, dates, and 
+    The data consists of three lists for tweet texts, dates, and 
     tokenized tweets. Additionally, the class contains dataframes that
     include examples of cleaned tweet data and sentiment data.
     """     

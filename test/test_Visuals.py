@@ -12,7 +12,7 @@ from src.Visuals import Visuals
 from test.test_Data import TestData
 
 class TestVisuals(unittest.TestCase, TestData):
-    """Class that contains unit tests for the Visuals class.
+    """Contains the unit tests for the Visuals class.
 
     Functions of the Visuals class are tested by comparing the output
     of the function to an expected test output. Expected images for

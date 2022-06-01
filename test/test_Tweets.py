@@ -4,7 +4,7 @@ from src.Tweets import Tweets
 from test.test_Data import TestData
 
 class TestTweets(unittest.TestCase, TestData):
-    """Class that contains unit tests for the Tweets class.
+    """Contains the unit tests for the Tweets class.
 
     The main function of the Tweets class is tested by comparing the 
     output of the function to an expected test output. Inherits test 
@@ -16,8 +16,8 @@ class TestTweets(unittest.TestCase, TestData):
         self.assertEqual(
             obj.get_tweets(
                 'luca_tom_third', 
-                'bearer token',
-                test = "test"
+                'bearer_token',
+                test = True
                 ),
             (TestTweets.tweet_text, TestTweets.tweet_date)
             )

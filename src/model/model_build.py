@@ -6,7 +6,6 @@ Bayes classifier from the nltk package. Steps to build the classifier
 follow a top-to-bottom execution of the present script. All steps are
 commented out and can be executed individually.
 
-
     Note:
         All instances in the building process assigning the words 
         'Liberal' or 'Conservative' and respective references within 
