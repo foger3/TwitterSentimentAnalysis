@@ -14,15 +14,15 @@ from test.test_Data import TestData
 class TestVisuals(unittest.TestCase, TestData):
     """Contains the unit tests for the Visuals class.
 
-    Functions of the Visuals class are tested by comparing the output
-    of the function to an expected test output. Expected images for
+    Methods of the Visuals class are tested by comparing the output
+    of the methods to an expected test output. Expected images for
     the test output are stored in the test/test_visuals directory. 
-    Inherits test data from TestData to provide input for functions.
+    Inherits test data from TestData to provide input for methods.
     """    
     this_dir, this_filename = os.path.split(__file__) 
 
     def test_word_density(self):
-        """Tests if output of function is not different to expected image.
+        """Tests if output of method is not different to expected image.
         
         The output of word_density is saved to a file and compared to 
         the expected image by examining the pixel-by-pixel differences.
@@ -47,7 +47,7 @@ class TestVisuals(unittest.TestCase, TestData):
         os.remove(TestVisuals.this_dir +'/test_visuals/test_word_density.png')
 
     def test_sentiment_plots_pie(self):
-        """Tests if output of function is not different to expected image.
+        """Tests if output of method is not different to expected image.
         
         The output of sentiment_plots_pie is saved to a file and 
         compared to the expected image by examining the pixel-by-pixel 
@@ -78,7 +78,7 @@ class TestVisuals(unittest.TestCase, TestData):
         os.remove(TestVisuals.this_dir + '/test_visuals/test_pie_chart.png')        
 
     def test_sentiment_plots_time(self):
-        """Tests if output of function is not different to expected image.
+        """Tests if output of method is not different to expected image.
         
         The output of sentiment_plots_time is saved to a file and
         compared to the expected image by examining the pixel-by-pixel

@@ -1,4 +1,4 @@
-"""Building classifier for sentiment analysis
+"""Building classifier for sentiment analysis.
 
 This scripts allows users to build their own classifier for sentiment
 analysis or other purposes. The classifier is built using the Naive 
@@ -39,16 +39,21 @@ os.chdir('c:\\Users\\...\\..\\...\\Data Files')
 
 
 ##### Required functions to get data in shape for model build #####
-# remove_noise: Removes noise within tweets, inlcuding usernames,
-# special characters, links, specific words (e.g., 'tune').
-# Removes noise for each token after tagging them with their
-# context (e.g., 'Noun' = 'NN') with pos_tag and afterwards
-# normalize words to their stem version ('running' = 'run') with
-# WordNetLemmatizer().lemmatize. Lastly, stopwords are removed.
-# Proper documentation of this function can be found in the
-# module "Cleaners" in the "src" folder.
 def remove_noise(tweet_tokens):
+    """Removes noise from tokenized tweets and normalizes words.
 
+    Function removes usernames, hyperlinks, special characters,
+    numbers, short words, and stopwords from tokenized tweets. A
+    lemmatization function normalizes words to their root form.
+
+    Args:
+        tweet_tokens (list): List containing the tokens (str) of a 
+            single tweet.
+
+    Returns:
+        cleaned_tokens (list): List containing the tokens (str) of 
+            a single tweet with noise removed.
+    """
     tweet_tokens = [
         a for a, b in zip(tweet_tokens, [''] + tweet_tokens) if b != '@'
         ]
@@ -73,7 +78,7 @@ def remove_noise(tweet_tokens):
 
         if len(token) > 0 and token.lower() not in (stopwords.words('english') + ['want', 'would', 'could']):
             cleaned_tokens.append(token.lower())
-    return cleaned_tokens
+    return(cleaned_tokens)
 
 def get_tweets_for_model(cleaned_tokens_list):
     """Generator to convert cleaned tokens to dictionary for model build.
@@ -83,7 +88,7 @@ def get_tweets_for_model(cleaned_tokens_list):
             noise removal.
 
     Yields:
-        dictionary: Tokens as keys and True as the value
+        dictionary (dict): Tokens as keys and True as the value.
     """
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)

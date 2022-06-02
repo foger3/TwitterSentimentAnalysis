@@ -1,6 +1,6 @@
 """This module contains the class that executes the visualized analysis.
 
-All functions and information required for the sentiment analysis are
+All methods and information required for the sentiment analysis are
 combined in the class of this module. The module provides a visualized 
 overview of the political sentiments of the specfied user by accessing 
 the functionalities of the other modules/classes. Output includes a pie
@@ -8,8 +8,7 @@ chart, time series chart, wordcloud, and a single classified tweet.
 Input for the package is handled here.
 
     Classes:
-        Tweets: Class to handle input, access data and execute 
-            visualisation.
+        Tweets: Handles input, access data and execute visualisation.
     
     Typical usage example:
         obj = Tweets()
@@ -25,17 +24,17 @@ from src import Cleaners, Visuals
 class Tweets():
     """Handles input, access data and execute visualisation.
 
-    Class that contains functions to handle user inputs, access 
-    twitter's API, get the tweet data of a specified twitter user, and 
-    call the according visualisation functions.
+    Class that contains methods to handle user inputs, access 
+    twitter's API, get the cleaned tweet data of a specified twitter 
+    user, and call the according visualisation methods.
     
     Attributes:
-        clean (class): Class to refer to functions that clean data.
-        visual (class): Class to refer to visualisation functions.
+        clean (class): Refers to cleaning methods from Cleaners.
+        visual (class): Refers to visualization methods from Visuals.
 
     Methods:
         get_tweets: Gets the tweet data of a specified user.
-        get_plots: Calls the visualisation functions and plots them.
+        get_plots: Calls the visualisation methods and plots them.
     """
     def __init__(self):
         """Constructor for Tweets class."""
@@ -51,7 +50,7 @@ class Tweets():
     def get_tweets(self, username, bearer_token, test = False):
         """Gets the tweet data of the specified user.
 
-        Function accesses the twitter API and retrieves the tweets of 
+        Method accesses the twitter API and retrieves the tweets of 
         a certain user. The data is stored into two list, containing
         information on the tweets content and their dates. Includes
         error handling in case of misspecifications or errors.
@@ -65,9 +64,9 @@ class Tweets():
 
         Returns (optional):
             tweet_text (list): List containing each tweets text (str), 
-                only returned for test function.
+                only returned for unittests.
             tweet_date (list): List containing each tweets date, only
-                returned for test function.
+                returned for unittests.
         """
         try:
             client = tw.Client(bearer_token = bearer_token) 
@@ -101,18 +100,18 @@ class Tweets():
                 return(tweet_text, tweet_date)
         
     def get_plots(self, tweet_text, tweet_df, tweet_sentiments_df):
-        """Calls the visualisation functions and plots them.
+        """Calls the visualisation methods and plots them.
 
-        Function calls visuallisation functions from the Visuals class
+        Method calls visuallisation methods from the Visuals class
         and provides the cleaned data to those. A plotting function is 
         called to display the create plots.
 
         Args:
             tweet_text (list): List containing each tweets text (str).
-            tweet_df (DataFrame): Dataframe containing columns for 
+            tweet_df (dataframe): Dataframe containing columns for 
                 tokenized cleaned tweets (list(str)) and tweet dates, 
                 respectively.
-            tweet_sentiments_df (DataFrame): Dataframe containing 
+            tweet_sentiments_df (dataframe): Dataframe containing 
                 columns for tweet sentiments (str), sentiment 
                 probabilities (float), tweet dates, and running 
                 averages (float), respectively.

@@ -10,7 +10,7 @@ word frequency.
 
     Modules:
         Tweets: Contains class to access data and execute visualisation.
-        Visuals: Contains class with visualisation functions.
-        Cleaners: Contains class with data cleaning functions.
+        Visuals: Contains class with visualisation methods.
+        Cleaners: Contains class with data cleaning methods.
 """
 from src import Tweets

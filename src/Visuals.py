@@ -1,13 +1,12 @@
 """This module contains the visualization class.
 
 This module serves soley the purpose of providing a class containing
-functions to visualise the data accessed by the specified twitter user.
+methods to visualise the data accessed by the specified twitter user.
 The visualisations include a pie chart, time series chart, wordcloud, 
 and a single classified tweet.
 
     Classes:
-        Visuals: Class that contains the functions to visualise 
-            cleaned data.
+        Visuals: Contains the methods to visualise cleaned data.
 """
 import re
 import pickle
@@ -23,17 +22,17 @@ from wordcloud import WordCloud
 from src import Cleaners
 
 class Visuals(Cleaners.Classifier):
-    """Contains the functions to visualise cleaned data.
+    """Contains the methods to visualise cleaned data.
 
-    Class that contains functions to construct the different 
+    Class that contains methods to construct the different 
     visualizations. Graphics include a pie chart, time series chart and
     a word cloud. Additionally, an example tweet is printed to the 
-    console. Inherits classifier from Classifier class. 
+    console. Inherits from Classifier class. 
 
     Attributes:
         classifier (NaiveBayesClassifier): Pre-trained classifier for 
             sentiment analysis.
-        clean (class): Class to refer to functions that clean data.
+        clean (class): Refers to cleaning methods from Cleaners.
     
     Methods:
         word_density: Creates a wordcloud of the most common words in
@@ -51,14 +50,14 @@ class Visuals(Cleaners.Classifier):
         model_hold.close()
         self.clean = Cleaners.Cleaners()
 
+    # Credit: https://www.pythonprogramming.in/how-to-create-a-word-cloud-from-a-corpus.html
     def word_density(self, tweet_cleaned, random = None):
-        # Credit: https://www.pythonprogramming.in/how-to-create-a-word-cloud-from-a-corpus.html
         """Creates a wordcloud of the most common words in the data.
 
         Args:
             tweet_cleaned (list): List containing the tokenized 
                 cleaned tweets (list(str)).
-            random (int, optional): Integer used for testing 
+            random (int, optional): Integer used for unit testing 
                 word_density by setting a seed. Defaults to None.
         """        
         fig, ax = plt.subplots(figsize = (10, 6))
@@ -100,13 +99,13 @@ class Visuals(Cleaners.Classifier):
     def sentiment_plots_time(self, time_series_data):
         """Creates a time series chart of the sentiment probabilities.
 
-        Function uses the sentiment probabilities and dates to create
+        Method uses the sentiment probabilities and dates to create
         a time series chart. Due to difficulties in interpreting the
         fluctuations within sentiment probability, a running average
         including the last 14 values is created.
 
         Args:
-            time_series_data (DataFrame): Dataframe containing columns 
+            time_series_data (dataframe): Dataframe containing columns 
                 for tweet sentiments (str), sentiment probabilities 
                 (float), tweet dates, and running averages (float), 
                 respectively.
@@ -147,6 +146,9 @@ class Visuals(Cleaners.Classifier):
     def single_tweet(self, tweet_text, num):
         """Prints a random classified tweet to the console.
 
+        Method applies tokenization, noise removal, and the 
+        pre-trained classifier to a single tweet. Prints result.
+
         Args:
             tweet_text (list): List containing each tweets text (str).
             num (int): Random integer to select a tweet from the tweet
@@ -155,7 +157,7 @@ class Visuals(Cleaners.Classifier):
         single_tweet_token = self.clean.remove_noise(
             word_tokenize(tweet_text[num - 1])
             )
-        # Next line: removes hyperlinks from text
+        # Next line: Removes hyperlinks from text.
         single_tweet = re.sub(
             'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
             '(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', tweet_text[num - 1]

@@ -6,10 +6,10 @@ from test.test_Data import TestData
 class TestCleaners(unittest.TestCase, TestData):
     """Contains the unit tests for the Cleaners class.
 
-    Functions of the Cleaners class are tested by comparing the output
-    of the function to an expected test output. Certain functions are
+    Methods of the Cleaners class are tested by comparing the output
+    of the methods to an expected test output. Certain methods are
     tested on wether any output is produced. Inherits test data from 
-    TestData to provide input for functions and compare outputs.
+    TestData to provide input for methods and compare outputs.
     """
     def test_clean_tweets(self):
         """Tests if output of clean_tweets is equal to test output."""       

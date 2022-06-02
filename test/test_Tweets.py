@@ -6,9 +6,9 @@ from test.test_Data import TestData
 class TestTweets(unittest.TestCase, TestData):
     """Contains the unit tests for the Tweets class.
 
-    The main function of the Tweets class is tested by comparing the 
-    output of the function to an expected test output. Inherits test 
-    data from TestData to provide input for functions.
+    The main method of the Tweets class is tested by comparing the 
+    output of the method to an expected test output. Inherits test 
+    data from TestData to provide input for method and compare output.
     """
     def test_get_tweets(self):
         """Tests if output of get_tweets is equal to test output."""        
@@ -16,7 +16,7 @@ class TestTweets(unittest.TestCase, TestData):
         self.assertEqual(
             obj.get_tweets(
                 'luca_tom_third', 
-                'bearer_token',
+                'bearer token',
                 test = True
                 ),
             (TestTweets.tweet_text, TestTweets.tweet_date)
