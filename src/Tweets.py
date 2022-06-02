@@ -21,7 +21,7 @@ from random import randrange
 
 from src import Cleaners, Visuals
 
-class Tweets():
+class Tweets:
     """Handles input, access data and execute visualisation.
 
     Class that contains methods to handle user inputs, access 

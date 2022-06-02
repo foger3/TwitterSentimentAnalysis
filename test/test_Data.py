@@ -22,8 +22,8 @@ class TestData:
          'dates': [tweet_date[0], tweet_date[1]]}
         )
     tweet_sentiments_df = pd.DataFrame(
-        {'sentiments': ['Conservative', 'Conservative'],
-         'sentiments_prob': [-0.34753563238125573,-0.04166585465758832],
+        {'sentiments': ['Conservative', 'Liberal'],
+         'sentiments_prob': [-0.0652096791679232, 0.07608715693004409],
          'dates': [tweet_date[0], tweet_date[1]],
          '14_run_avg': [float('nan'), float('nan')]}
         ).sort_values('dates')

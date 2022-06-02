@@ -22,9 +22,19 @@ from nltk.tag import pos_tag
 from nltk.corpus import stopwords
 
 class Classifier:
-    """Provides information on the classifier directory."""
+    """Provides information on the classifier directory.
+    
+    Points to the directory containing the pre-trained classifier. 
+    The directory contains two versions, one trained on 10.000 and
+    one trained on 30.000 tweets. The classifier is saved as a pickle.
+    The default classifier is the one trained on 30.000 tweets.
+
+    Note:
+        If one wishes to change the classifier, the below path can be
+        renamed to reflect the new classifier.
+    """
     this_dir, this_filename = os.path.split(__file__) 
-    data_path = os.path.join(this_dir, 'model/pol_classifier.pickle') 
+    data_path = os.path.join(this_dir, 'model/pol_classifier_30k.pickle') 
 
 class Cleaners(Classifier):
     """Contains methods to clean tweet data and create data frames.

@@ -14,10 +14,10 @@ process.
 
 ## Package Content
 The package includes modules executing the described functionality and
-scripts detailing how the political classifier was build 
-(.../src/model). Users of this package are invited to do their own 
-sentiment analysis using the provided scripts or replicate the provided
-classifier.
+a script detailing how the political classifier was build 
+(.../src/model) as well as the used data to train it. Users of this 
+package are invited to do their own sentiment analysis using the 
+provided script or replicate the provided classifier.
 
 ## Running the package
 ```bash

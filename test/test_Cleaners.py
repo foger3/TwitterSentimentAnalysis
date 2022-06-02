@@ -39,7 +39,7 @@ class TestCleaners(unittest.TestCase, TestData):
         test_obj = obj.clean_sentiment(
             TestCleaners.tweet_text,
             TestCleaners.tweet_date
-            )  
+            )
         self.assertEqual(
             True, 
             test_obj.equals(TestCleaners.tweet_sentiments_df)

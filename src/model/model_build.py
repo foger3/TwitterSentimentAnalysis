@@ -64,7 +64,25 @@ def remove_noise(tweet_tokens):
         token = re.sub(r'\b\w{1,2}\b', "", token) # remove words < 3chr     
         token = re.sub(r'\bhtt\w+', "", token) # remove links
         token = re.sub(r'\btco\w+', "", token) # remove links
-        token = re.sub(r'\b[Tt]*une\b', "", token) # special for shows
+        # Below removes special context words from tweets:
+        token = re.sub(r'\b[Tt]*une\b', "", token)
+        token = re.sub(r'\b[Ff]*auci\b', "", token)
+        token = re.sub(r'\b[Mm]*itch\b', "", token)
+        token = re.sub(r'\b[Cc]*linton\b', "", token)
+        token = re.sub(r'\b[Dd]*esantis\b', "", token)
+        token = re.sub(r'\b[Mm]*cconnell\b', "", token)
+        token = re.sub(r'\b[Tt]*ennessee\b', "", token)
+        token = re.sub(r'\b[Tt]*aiwan\b', "", token)
+        token = re.sub(r'\b[Jj]*ersey\b', "", token)
+        token = re.sub(r'\b[Oo]*regon\b', "", token)
+        token = re.sub(r'\b[Ff]*lorida\b', "", token)
+        token = re.sub(r'\b[Ff]*loridians\b', "", token)
+        token = re.sub(r'\b[Aa]*rizona\b', "", token)
+        token = re.sub(r'\b[Aa]*rizonans\b', "", token)        
+        token = re.sub(r'\b[Ii]*owa\b', "", token)
+        token = re.sub(r'\b[Ll]*ewis\b', "", token)
+        token = re.sub(r'\b[Mm]*onoclonal\b', "", token)
+        token = re.sub(r'\b[Aa]*ntibody\b', "", token)
 
         if tag.startswith("NN"):
             pos = 'n'
