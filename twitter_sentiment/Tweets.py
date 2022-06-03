@@ -19,7 +19,7 @@ import tweepy as tw
 import matplotlib.pyplot as plt
 from random import randrange
 
-from src import Cleaners, Visuals
+from twitter_sentiment import Cleaners, Visuals
 
 class Tweets:
     """Handles input, access data and execute visualisation.

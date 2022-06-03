@@ -205,6 +205,7 @@ model_hold.close()
 model_hold = open('classifier.pickle', 'rb')
 classifier = pickle.load(model_hold)
 model_hold.close()
-# The classifier can be stored in the current directory (...src/model)
-# and replace the one provided by default 'pol_classifier.pickle' to
-# run your own sentiment analysis with the customized classifier.
+# The classifier can be stored in the current directory 
+# (...twitter_sentiment/model) and replace the one provided by default 
+# 'pol_classifier_30k.pickle' to run your own sentiment analysis with 
+# the customized classifier.

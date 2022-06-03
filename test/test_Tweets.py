@@ -1,6 +1,6 @@
 import unittest
 
-from src.Tweets import Tweets
+from twitter_sentiment.Tweets import Tweets
 from test.test_Data import TestData
 
 class TestTweets(unittest.TestCase, TestData):
