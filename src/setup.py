@@ -1,7 +1,7 @@
 import setuptools 
 
 setuptools.setup(
-    name = 'twitter_nlp',
+    name = 'TwitterSentimentAnalysis',
     version = '0.0.1',
     author = 'Luca Thoms',
     author_email= 'luca.thoms@student.uva.nl',
