@@ -1,6 +1,6 @@
 import unittest
 
-from src.Cleaners import Cleaners
+from twitter_sentiment.Cleaners import Cleaners
 from test.test_Data import TestData
 
 class TestCleaners(unittest.TestCase, TestData):

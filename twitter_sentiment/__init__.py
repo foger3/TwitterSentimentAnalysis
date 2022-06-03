@@ -13,4 +13,4 @@ word frequency.
         Visuals: Contains class with visualisation methods.
         Cleaners: Contains class with data cleaning methods.
 """
-from src import Tweets
+from twitter_sentiment import Tweets

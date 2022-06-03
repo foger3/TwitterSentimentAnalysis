@@ -19,7 +19,7 @@ from nltk import FreqDist
 from nltk.tokenize import word_tokenize
 from wordcloud import WordCloud
 
-from src import Cleaners
+from twitter_sentiment import Cleaners
 
 class Visuals(Cleaners.Classifier):
     """Contains the methods to visualise cleaned data.

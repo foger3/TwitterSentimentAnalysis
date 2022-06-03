@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from PIL import ImageChops
 
-from src.Visuals import Visuals
+from twitter_sentiment.Visuals import Visuals
 from test.test_Data import TestData
 
 class TestVisuals(unittest.TestCase, TestData):
