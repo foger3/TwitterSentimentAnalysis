@@ -1,6 +1,5 @@
 # Sentiment Analysis of Twitter Users
 
-[![Repo Size](https://github-size-badge.herokuapp.com/Programming-The-Next-Step-2022/TwitterSentimentAnalysis.svg)](https://github.com/Programming-The-Next-Step-2022/TwitterSentimentAnalysis)
 [![Python 3+7 ready](https://img.shields.io/badge/python-3.8%2B-yellowgreen.svg)](https://www.python.org/)
 [![Licence](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
